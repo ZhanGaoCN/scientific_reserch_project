@@ -1,0 +1,9 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1717769513" />
+    <testcase name="run_test_nack_hash_001" classname="test_mau_rbttx_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="1.0757641792297363" sim_time_ns="12304.001" ratio_time="11437.451848238574" />
+    <testcase name="run_test_nack_hash_002" classname="test_mau_rbttx_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="0.9139111042022705" sim_time_ns="12440.001" ratio_time="13611.828265133683" />
+    <testcase name="run_test_nack_hash_003" classname="test_mau_rbttx_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="0.759331464767456" sim_time_ns="12432.000999999997" ratio_time="16372.297971093922" />
+    <testcase name="run_test_nack_hash_004" classname="test_mau_rbttx_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="0.8039102554321289" sim_time_ns="12440.001000000004" ratio_time="15474.365348546378" />
+  </testsuite>
+</testsuites>

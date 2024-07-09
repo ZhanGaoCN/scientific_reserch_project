@@ -1,0 +1,9 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1718785834" />
+    <testcase name="run_test_rbt_dat_001" classname="test_rbt_s_parser_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="0.3532075881958008" sim_time_ns="712.001" ratio_time="2015.8145628663615" />
+    <testcase name="run_test_rbt_dat_002" classname="test_rbt_s_parser_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="0.3598630428314209" sim_time_ns="2328.001" ratio_time="6469.130538338054" />
+    <testcase name="run_test_rbt_dat_003" classname="test_rbt_s_parser_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="0.3311612606048584" sim_time_ns="2104.0009999999997" ratio_time="6353.403161218466" />
+    <testcase name="run_test_rbt_dat_004" classname="test_rbt_s_parser_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="0.34789538383483887" sim_time_ns="2328.001" ratio_time="6691.6697035141" />
+  </testsuite>
+</testsuites>
