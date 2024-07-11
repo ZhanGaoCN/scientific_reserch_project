@@ -14,6 +14,8 @@ VERILOG_SOURCES += ../../../rtl/mau_reliable_send/flowstate_ram.v
 VERILOG_SOURCES += ../../../rtl/mau_reliable_send/flowstate_sendmau_addr_ctl.v
 VERILOG_SOURCES += ../../../rtl/mau_reliable_send/mau_reliable_send_action_unit.v
 VERILOG_SOURCES += ../../../../../../modules/memory/rtl/simple_dual_port_ram.v
+VERILOG_SOURCES += ../../../../../../modules/table/rtl/state_inflight.v
+VERILOG_SOURCES += ../../../../../../corundum/fpga/lib/eth/lib/axis/rtl/priority_encoder.v
 
 ifeq ($(SIM), icarus)
 	PLUSARGS += -fst

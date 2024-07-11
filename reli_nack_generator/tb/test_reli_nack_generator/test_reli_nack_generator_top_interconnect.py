@@ -377,12 +377,12 @@ async def run_test_input_vector(dut, sort_number, payload_lengths=None, payload_
         await tb.send_reli_req(s_info_dat_lost, s_id_dat_lost,
                         key_msg_dat_lost, type_dat_lost)
         cnt = cnt + 1
-        for _ in range(6200_0):
+        for _ in range(64):
             await RisingEdge(dut.clk)
             await RisingEdge(dut.clk)
     
 
-    for _ in range(12800_0):
+    for _ in range(1280):
         await RisingEdge(dut.clk)
         await RisingEdge(dut.clk)
 

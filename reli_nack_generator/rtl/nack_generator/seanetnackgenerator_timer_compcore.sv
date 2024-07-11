@@ -227,7 +227,7 @@ module seanetnackgenerator_timer_compcore#(
     wire    [31:0]          covered_tail;
     assign covered_hdr = 
                 ins_wnd_hdr > alarm_timer_hdr && alarm_timer_hdr >= ins_wnd_tail ? alarm_timer_hdr :
-                alarm_timer_hdr > ins_wnd_hdr && ins_wnd_hdr > ins_wnd_tail ? ins_wnd_hdr-1 :
+                alarm_timer_hdr >= ins_wnd_hdr && ins_wnd_hdr > ins_wnd_tail ? ins_wnd_hdr-1 :
                 alarm_timer_hdr >= ins_wnd_tail && ins_wnd_tail > ins_wnd_hdr ? alarm_timer_hdr :
                 ins_wnd_tail > alarm_timer_hdr && alarm_timer_hdr >= ins_wnd_hdr ? ins_wnd_hdr-1 : 
                 ins_wnd_tail > ins_wnd_hdr && ins_wnd_hdr > alarm_timer_hdr ? alarm_timer_hdr :
@@ -627,7 +627,7 @@ module seanetnackgenerator_timer_compcore#(
     assign cmd_arlen    = ddr_rd_len        ;
     assign cmd_arvalid  = ~cmd_fifo_empty   ;
     assign cmd_rready   = i_nackgen_rdy     ;
-    wire    [31-1:0]                adp_axi_araddr      ;
+    wire    [32-1:0]                adp_axi_araddr      ;
     wire    [7:0]                   adp_axi_arlen       ;
     wire                            adp_axi_arvalid     ;
     wire                            adp_axi_arready     ;

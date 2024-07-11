@@ -159,7 +159,7 @@ assign rpn_offset = phv_b[SEATL_OFFSET_NO] + RPN_OFFSET;
 
 assign pktrst_modify_flag = phv_b[PKTPROPERTY_NO][5];   //pkt_rst_enable
 assign rpara_offset = phv_b[SEATL_OFFSET_NO] + 5;
-assign seatl_offset = phv_b[SEATL_OFFSET_NO];
+// assign seatl_offset = phv_b[SEATL_OFFSET_NO];
 
 always @* begin
     if(phv_b[PKTPROPERTY_NO][2])begin

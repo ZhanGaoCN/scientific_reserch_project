@@ -176,7 +176,8 @@ async def run_test_rbt_dat(dut, payload_lengths=None, payload_data=None, idle_in
         # seaup_header: this simulation generator seaup dat packet (without unique seaup_header)
         
         rawpkt_seq =  str(seq)
-        test_pkt = eth / ipv6 / idp_rbt_dat_093 / seatl_commom_field / payload / rawpkt_seq
+        test_pkt = eth / ipv6 / idp_rbt_dat_093 / seatl_commom_field 
+        # / rawpkt_seq
 
         user_width=int(os.getenv("PARAM_USER_WIDTH", "56"))
         
@@ -214,7 +215,7 @@ async def run_test_rbt_dat(dut, payload_lengths=None, payload_data=None, idle_in
         phv_b_out[SEATL_OFFSET_NO] =0x5E #82
       
 
-        phv_h_out[PKT_LEN_NO]=0xdcba
+        phv_h_out[PKT_LEN_NO]=0x007E
         phv_h_out[FLOW_INDEX_NO]=0x0000
 
         phv_w_out[PROTOCOL_NO] =0x2431 #seaup packcet 2431

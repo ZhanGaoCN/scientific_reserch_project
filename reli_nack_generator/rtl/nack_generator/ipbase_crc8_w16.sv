@@ -18,9 +18,9 @@
 //------------------------------------------------------------
 module ipbase_crc8_w16(
     input   wire                    clk     ,
-    input   wire    [511:0]         din     ,
-    input   wire    [31:0]          cyc     ,
-    output  wire    [31:0]          dout    
+    input   wire    [15:0]          din     ,
+    input   wire    [7 :0]          cyc     ,
+    output  wire    [7 :0]          dout    
 );
 assign dout[7] =cyc[7]^cyc[6]^cyc[4]^cyc[1]^din[15]^din[14]^din[12]^din[9]^din[5]^din[4]^din[3];
 assign dout[6] =cyc[7]^cyc[6]^cyc[5]^cyc[3]^cyc[0]^din[15]^din[14]^din[13]^din[11]^din[8]^din[4]^din[3]^din[2];

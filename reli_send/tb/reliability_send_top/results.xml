@@ -1,9 +1,9 @@
 <testsuites name="results">
   <testsuite name="all" package="all">
-    <property name="random_seed" value="1718443491" />
-    <testcase name="run_test_rbt_pktout_001" classname="test_reliability_send_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="1.4839177131652832" sim_time_ns="12080.001" ratio_time="8140.6137906613785" />
-    <testcase name="run_test_rbt_pktout_002" classname="test_reliability_send_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="1.2519199848175049" sim_time_ns="13584.001" ratio_time="10850.534510781989" />
-    <testcase name="run_test_rbt_pktout_003" classname="test_reliability_send_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="1.2120614051818848" sim_time_ns="13584.000999999997" ratio_time="11207.353803961401" />
-    <testcase name="run_test_rbt_pktout_004" classname="test_reliability_send_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="1.1916491985321045" sim_time_ns="13808.001000000004" ratio_time="11587.303559645703" />
+    <property name="random_seed" value="1720083878" />
+    <testcase name="run_test_rbt_dat_hit" classname="test_reliability_send_top" file="/usr/local/lib/python3.8/dist-packages/cocotb/regression.py" lineno="145" time="38.86606550216675" sim_time_ns="142640.001" ratio_time="3670.0396388733493" />
+    <testcase name="run_test_rbt_dat_hit" classname="test_reliability_send_top" file="/usr/local/lib/python3.8/dist-packages/cocotb/regression.py" lineno="145" time="74.04761171340942" sim_time_ns="535856.0009999999" ratio_time="7236.641244743357" />
+    <testcase name="run_test_rbt_dat_hit" classname="test_reliability_send_top" file="/usr/local/lib/python3.8/dist-packages/cocotb/regression.py" lineno="145" time="72.55950999259949" sim_time_ns="535848.001" ratio_time="7384.945144401505" />
+    <testcase name="run_test_rbt_dat_hit" classname="test_reliability_send_top" file="/usr/local/lib/python3.8/dist-packages/cocotb/regression.py" lineno="145" time="75.40149569511414" sim_time_ns="536048.0009999999" ratio_time="7109.248908901084" />
   </testsuite>
 </testsuites>

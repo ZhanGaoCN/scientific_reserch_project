@@ -97,6 +97,7 @@ reg [31:0] phv_w_reg[0:PHV_W_COUNT-1];
 //assign flowstate_wire=(bcd_match)?bcd_flowstate_out:(latest1_match)?latest_flowstate_1[FLOWSTATE_WIDTH-1:0]://s_mat_value;
 //(latest2_match)?latest_flowstate_2[FLOWSTATE_WIDTH-1:0]:s_mat_value;
 //assign phv_w[11]=bcd_flowstate_out;
+/*
 always @ (*) begin
     case (s_phv_match_sel)
     2'b01: begin
@@ -113,7 +114,48 @@ always @ (*) begin
     end
     endcase
 end
+*/
 
+wire [FLOWSTATE_WIDTH-1:0] cache_flowstate;
+wire                       cache_hit;
+reg [ADDR_WIDTH-1:0]        state_key;
+reg [FLOWSTATE_WIDTH-1:0]   state_value;
+reg                         state_valid;
+
+always @ (*) begin
+    flowstate_wire = cache_hit? cache_flowstate:s_phv_mat_value;
+end 
+
+state_inflight #(
+    .KEY_WIDTH(ADDR_WIDTH),
+    .VALUE_WIDTH(FLOWSTATE_WIDTH),
+    .PIPELINE(3)
+)
+state_inflight_inst (
+    .clk(clk),
+    .rst(rst),
+    .key(s_phv_mat_addr),
+    .value(cache_flowstate),
+    .hit(cache_hit),    
+    .cache_key(state_key),
+    .cache_value(state_value),
+    .cache_valid(state_valid)
+);
+
+always @(*) begin
+    state_key = {ADDR_WIDTH{1'b0}};
+    state_value = {FLOWSTATE_WIDTH{1'b0}};
+    state_valid = 1'b0; 
+    if(s_phv_valid && s_phv_ready & phv_b[PKT_VALID_ON][SEND_TABLE_MASK]) begin
+        if (s_phv_mat_hit) begin
+            if (phv_b[PKT_PROPERTY_ON][DAT_INDEX]) begin //dat
+                state_key = s_phv_mat_addr;
+                state_value = flowstate_wire+1;
+                state_valid = 1'b1;
+            end
+        end
+    end
+end
 
 generate
 
@@ -148,6 +190,7 @@ always @( posedge clk ) begin
     if ( s_phv_valid && s_phv_ready  ) begin
         m_phv_valid_reg <= 1'b1;
         flowstate_addr<=s_phv_mat_addr;
+        flowstate_r<=flowstate_wire;
         for (i = 0; i < PHV_B_COUNT; i = i + 1) begin
             phv_b_reg[i] <= phv_b[i];
         end
@@ -167,9 +210,10 @@ always @( posedge clk ) begin
                     phv_b_reg[PKT_VALID_ON][RELI_BUFFER_HIT_INDEX]<=1;
                     phv_h_reg[FLOW_INDEX_NO]<=s_phv_mat_addr;//set flow index 
                     phv_b_reg[PKT_VALID_ON][CLONE_PKTIN_NO]<=0;
+                    hit_reg<=1;
                 end else if (phv_b[PKT_PROPERTY_ON][NACK_INDEX]) begin//nack
                     phv_b_reg[PKT_VALID_ON][RELI_BUFFER_HIT_INDEX]<=1;
-                    phv_h_reg[FLOW_INDEX_NO]<=s_phv_mat_addr;//set flow index 
+                    phv_h_reg[FLOW_INDEX_NO]<=s_phv_mat_addr;//set flow index
                 end 
             end else begin
                 if (phv_b[PKT_PROPERTY_ON][DAT_INDEX]) begin

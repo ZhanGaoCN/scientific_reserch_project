@@ -239,7 +239,7 @@ else
                     (new_wnd_valid && (new_wnd_sn == i)) ? 0 : 
                     ot_hitbox_1w1024d[i];
         for(i=0;i<32;i=i+1)
-            assign ot_hitbox_32w32d[i] = ot_hitbox_1w1024d[32*i+32:32*i];
+            assign ot_hitbox_32w32d[i] = ot_hitbox_1w1024d[32*i+31:32*i];
     endgenerate
     reg     [31:0]          ot_hitbox_L0={32{1'b1}};
     reg                     ot_hitbox_L1=1;

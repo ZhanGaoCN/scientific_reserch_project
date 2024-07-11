@@ -33,7 +33,7 @@ module reliability_send_top # (
     parameter KEY_WIDTH             = 256,
     parameter MASK_WIDTH            = KEY_WIDTH,
     parameter VALUE_WIDTH           = 0,
-    parameter STATE_WIDTH           = 32,
+    parameter STATE_WIDTH           = 32, 
     parameter OPCODE_WIDTH          = 4,
 
     parameter FLOWSTATE_WIDTH       = 32,

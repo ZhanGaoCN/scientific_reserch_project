@@ -26,6 +26,7 @@ VERILOG_SOURCES += ../../rtl/parser/rbt_s_post_parser.v
 VERILOG_SOURCES += ../../rtl/mau_rbttx/mau_rbttx_top.v
 VERILOG_SOURCES += ../../rtl/mau_rbttx/key_selector_rbttx.v
 VERILOG_SOURCES += ../../rtl/mau_reliable_send/mau_reliable_send_action_unit.v
+VERILOG_SOURCES += ../../rtl/mau_reliable_send/flowstate_sendmau_addr_ctl.v
 VERILOG_SOURCES += ../../rtl/mau_reliable_send/reliable_send_action_core.v
 VERILOG_SOURCES += ../../../reli_recv/rtl/mau_reliable_recv/flowstate_ram.v
 VERILOG_SOURCES += ../../../reli_recv/rtl/mau_reliable_recv/flowstate_addr_ctl.v
@@ -35,6 +36,7 @@ VERILOG_SOURCES += ../../../../flowmod_controller/rtl/flowmod_controller.v
 
 #em_table
 VERILOG_SOURCES += ../../../../../corundum/fpga/lib/eth/lib/axis/rtl/priority_encoder.v
+VERILOG_SOURCES += ../../../../../modules/table/rtl/state_inflight.v
 VERILOG_SOURCES += ../../../../../modules/table_flowrequest/rtl/em_table_sub4/em_table_sub4.v
 VERILOG_SOURCES += ../../../../../modules/table_flowrequest/rtl/em_table_sub4/hashing_unit_sub4_256x9.v
 VERILOG_SOURCES += ../../../../../modules/table_flowrequest/rtl/em_table_sub4/hashing_unit_sub4_128x9.v

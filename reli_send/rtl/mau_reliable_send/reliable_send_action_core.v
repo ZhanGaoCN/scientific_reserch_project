@@ -6,10 +6,10 @@
 `default_nettype none
 module reliable_send_action_core#(
 	parameter VALUE_WIDTH = 32,
-	parameter PHV_WIDTH = 456,
-    parameter PHV_B_COUNT = 9,
+    parameter PHV_B_COUNT = 7,
     parameter PHV_H_COUNT = 2,
-    parameter PHV_W_COUNT = 11,
+    parameter PHV_W_COUNT = 10,
+	parameter PHV_WIDTH = PHV_B_COUNT*8 + PHV_H_COUNT*16 + PHV_W_COUNT*32,
     parameter FLOWSTATE_WIDTH=32,
     parameter ADDR_WIDTH=10,
     parameter OPCODE_WIDTH=4
@@ -103,7 +103,7 @@ flowstate_ram #(
 
 
 
-flowstate_addr_ctl #(
+flowstate_sendmau_addr_ctl #(
 .PHV_WIDTH(PHV_WIDTH),
 .PHV_B_COUNT(PHV_B_COUNT),
 .PHV_H_COUNT(PHV_H_COUNT),

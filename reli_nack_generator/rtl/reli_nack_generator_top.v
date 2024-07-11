@@ -263,8 +263,8 @@ module reli_nack_generator_top #(
     wire    [AXI_ADDR_WIDTH-1:0]    m00_axi_awaddr_x32bit;
     wire    [AXI_ADDR_WIDTH-1:0]    m01_axi_araddr_x32bit;
     wire    [AXI_ADDR_WIDTH-1:0]    m01_axi_awaddr_x32bit;
-    localparam BITMAP_BASE_ADDR = DDR_RNG_TP_BASEADDR[31:0];
-    localparam TIMER_BASE_ADDR  = DDR_RNG_TIMER_BASEADDR[31:0];
+    localparam [31:0] BITMAP_BASE_ADDR = DDR_RNG_TP_BASEADDR & 32'hFFFF_FFFF;
+    localparam [31:0] TIMER_BASE_ADDR  = DDR_RNG_TIMER_BASEADDR & 32'hFFFF_FFFF;
     assign m00_axi_araddr = {1'b1,m00_axi_araddr_x32bit};
     assign m00_axi_awaddr = {1'b1,m00_axi_awaddr_x32bit};
     assign m01_axi_araddr = {1'b1,m01_axi_araddr_x32bit};
