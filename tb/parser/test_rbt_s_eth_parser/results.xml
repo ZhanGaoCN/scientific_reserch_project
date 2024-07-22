@@ -1,0 +1,9 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1710922199" />
+    <testcase classname="test_rbt_s_eth_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_001" ratio_time="2037.531937248178" sim_time_ns="272.001" time="0.13349533081054688" />
+    <testcase classname="test_rbt_s_eth_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_002" ratio_time="3985.493954603854" sim_time_ns="568.001" time="0.14251708984375" />
+    <testcase classname="test_rbt_s_eth_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_003" ratio_time="3800.1138238508724" sim_time_ns="536.001" time="0.14104866981506348" />
+    <testcase classname="test_rbt_s_eth_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_004" ratio_time="3961.1278759105276" sim_time_ns="568.001" time="0.14339375495910645" />
+  </testsuite>
+</testsuites>
