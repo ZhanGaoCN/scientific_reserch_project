@@ -1,0 +1,9 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1710922313" />
+    <testcase classname="test_rbt_s_vlan_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_001" ratio_time="2220.201307582728" sim_time_ns="272.001" time="0.1225118637084961" />
+    <testcase classname="test_rbt_s_vlan_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_002" ratio_time="4363.976330291967" sim_time_ns="568.001" time="0.1301567554473877" />
+    <testcase classname="test_rbt_s_vlan_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_003" ratio_time="4201.413468108407" sim_time_ns="536.001" time="0.12757635116577148" />
+    <testcase classname="test_rbt_s_vlan_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_004" ratio_time="4318.866584189449" sim_time_ns="568.001" time="0.1315162181854248" />
+  </testsuite>
+</testsuites>

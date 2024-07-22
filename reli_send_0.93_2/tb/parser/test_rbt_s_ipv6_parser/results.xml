@@ -1,0 +1,9 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1710922357" />
+    <testcase classname="test_rbt_s_ipv6_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_001" ratio_time="1311.277712803997" sim_time_ns="272.001" time="0.20743203163146973" />
+    <testcase classname="test_rbt_s_ipv6_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_002" ratio_time="3068.967477207234" sim_time_ns="568.001" time="0.18507885932922363" />
+    <testcase classname="test_rbt_s_ipv6_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_003" ratio_time="3338.8350184366154" sim_time_ns="536.001" time="0.16053533554077148" />
+    <testcase classname="test_rbt_s_ipv6_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_004" ratio_time="3566.71412512108" sim_time_ns="568.001" time="0.15925049781799316" />
+  </testsuite>
+</testsuites>

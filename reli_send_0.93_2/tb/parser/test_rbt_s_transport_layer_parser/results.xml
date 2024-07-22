@@ -1,0 +1,9 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1710923730" />
+    <testcase classname="test_rbt_s_transport_layer_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_001" ratio_time="3436.796420890909" sim_time_ns="272.001" time="0.07914376258850098" />
+    <testcase classname="test_rbt_s_transport_layer_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_002" ratio_time="6544.196334784627" sim_time_ns="568.001" time="0.08679461479187012" />
+    <testcase classname="test_rbt_s_transport_layer_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_003" ratio_time="6380.485027030095" sim_time_ns="536.001" time="0.08400630950927734" />
+    <testcase classname="test_rbt_s_transport_layer_parser" file="/usr/local/lib64/python3.6/site-packages/cocotb/regression.py" lineno="713" name="run_test_full_004" ratio_time="6555.324664797413" sim_time_ns="568.001" time="0.08664727210998535" />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,9 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1717858779" />
+    <testcase name="run_test_dat_hit_093_001" classname="test_seanet_rbttx_deparser_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="0.43637752532958984" sim_time_ns="3376.001" ratio_time="7736.422716660657" />
+    <testcase name="run_test_dat_hit_093_002" classname="test_seanet_rbttx_deparser_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="0.49821925163269043" sim_time_ns="9272.001" ratio_time="18610.282460212387" />
+    <testcase name="run_test_dat_hit_093_003" classname="test_seanet_rbttx_deparser_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="0.558525562286377" sim_time_ns="9256.001" ratio_time="16572.20658282799" />
+    <testcase name="run_test_dat_hit_093_004" classname="test_seanet_rbttx_deparser_top" file="/home/zhangao/.local/lib/python3.8/site-packages/cocotb/regression.py" lineno="731" time="0.5460357666015625" sim_time_ns="9272.001" ratio_time="16980.574473550372" />
+  </testsuite>
+</testsuites>
