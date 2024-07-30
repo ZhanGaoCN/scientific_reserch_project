@@ -6,9 +6,9 @@ WAVES ?= 1
 COCOTB_HDL_TIMEUNIT = 1ns
 COCOTB_HDL_TIMEPRECISION = 1ps
 
-DUT      = reliability_send_top
+DUT      = reli_tx_top
 TOPLEVEL = $(DUT)
-MODULE   = test_reliability_send_top
+MODULE   = test_reli_tx_top
 VERILOG_SOURCES += ../../rtl/$(DUT).v
 
 #parser

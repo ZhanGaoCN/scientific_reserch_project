@@ -1,4 +1,14 @@
-// Language: Verilog 2001
+/*
+ * Created on 20240722
+ *
+ * Copyright (c) 2024 IOA UCAS
+ *
+ * @Filename:   reli_tx_top.v
+ * @Author:     zhangao
+ * @Last edit:
+ */
+
+ // Language: Verilog 2001
 
 `resetall
 `timescale 1ns / 1ps
@@ -7,16 +17,7 @@
 module rbt_s_vlan_parser #
 (
     parameter HEADER_WIDTH = 2048,
-    parameter PHV_WIDTH = 408,
-    parameter PHV_B_LEN = 8,
-    parameter PHV_H_LEN = 16,
-    parameter PHV_W_LEN = 32,
-    parameter PHV_B_NUM = 7,
-    parameter PHV_H_NUM = 2,
-    parameter PHV_W_NUM = 10,
-    parameter PHV_B_OFFSET = 0,
-    parameter PHV_H_OFFSET = PHV_B_OFFSET + PHV_B_NUM*PHV_B_LEN,
-    parameter PHV_W_OFFSET = PHV_H_OFFSET + PHV_H_NUM*PHV_H_LEN
+    parameter PKT_METADATA_WIDTH  = 272
 )
 (
     input  wire                     clk,
@@ -25,20 +26,20 @@ module rbt_s_vlan_parser #
     /*
      * proto header input
      */
-    input  wire                      in_proto_hdr_valid,
-    output wire                      in_proto_hdr_ready,
-    input  wire [15:0]               in_proto_hdr_length,
-    input  wire [HEADER_WIDTH-1:0]   in_proto_hdr_data,
-    input  wire [PHV_WIDTH-1:0]      in_proto_hdr_phv,
+    input  wire                               in_proto_hdr_valid,
+    output wire                               in_proto_hdr_ready,
+    input  wire [15:0]                        in_proto_hdr_length,
+    input  wire [HEADER_WIDTH-1:0]            in_proto_hdr_data,
+    input  wire [PKT_METADATA_WIDTH-1:0]      in_proto_hdr_pkt_metadata,
 
     /*
      * parse header output
      */
-    output wire                     out_proto_hdr_valid,
-    input  wire                     out_proto_hdr_ready,
-    output wire [HEADER_WIDTH-1:0]  out_proto_hdr_data,
-    output wire [PHV_WIDTH-1:0]     out_proto_hdr_phv,
-    output wire [15:0]              out_proto_hdr_length
+    output wire                              out_proto_hdr_valid,
+    input  wire                              out_proto_hdr_ready,
+    output wire [HEADER_WIDTH-1:0]           out_proto_hdr_data,
+    output wire [PKT_METADATA_WIDTH-1:0]     out_proto_hdr_pkt_metadata,
+    output wire [15:0]                       out_proto_hdr_length
 );
 
 reg proto_hdr_valid_reg, proto_hdr_valid_next;
@@ -58,72 +59,28 @@ initial begin
         $finish;
     end
 end
-
-// B NO
-localparam IP_OFFSET_NO = 4;
-localparam SEATL_OFFSET_NO = 6;
-// localparam TRANSPORT_LAYER_OFFSET_NO = 5;
-
-// w NO
-localparam PROTO_NO = 0;
+//pkt_metadata no and width
+localparam IP_OFFSET_NO = 236;
+localparam IP_OFFSET_WIDTH = 5;
+localparam PROTO_NO = 40;
+localparam PROTO_WIDTH = 32;
+localparam SEATL_OFFSET_NO = 252;
+localparam SEATL_OFFSET_WIDTH = 9;
 
 localparam VLAN_TAG_INDEX = 1;
 localparam IPV6_TAG_INDEX = 4;
-// localparam PPPOE_TAG_INDEX = 10;
 
+//pkt_metadata_init
+wire [271:0] pkt_metadata;
+reg  [271:0] pkt_metadata_reg;
+reg  [271:0] pkt_metadata_next;
 
-wire [7:0]  phv_b[0:PHV_B_NUM-1];
-wire [15:0] phv_h[0:PHV_H_NUM-1];
-wire [31:0] phv_w[0:PHV_W_NUM-1];
+assign pkt_metadata = in_proto_hdr_pkt_metadata;
+assign out_proto_hdr_pkt_metadata = pkt_metadata_reg;
 
-reg [7:0]  phv_b_reg[0:PHV_B_NUM-1];
-reg [15:0] phv_h_reg[0:PHV_H_NUM-1];
-reg [31:0] phv_w_reg[0:PHV_W_NUM-1];
-
-reg [7:0]  phv_b_next[0:PHV_B_NUM-1];
-reg [15:0] phv_h_next[0:PHV_H_NUM-1];
-reg [31:0] phv_w_next[0:PHV_W_NUM-1];
-
-generate
-
-    genvar b,h,w;
-
-    for (b = 0; b < PHV_B_NUM; b = b + 1) begin
-        assign phv_b[b] = in_proto_hdr_phv[b*8 +: 8];
-    end
-    for (h = 0; h < PHV_H_NUM; h = h + 1) begin
-        assign phv_h[h] = in_proto_hdr_phv[8*PHV_B_NUM+h*16 +: 16];
-    end
-    for (w = 0; w < PHV_W_NUM; w = w + 1) begin
-        assign phv_w[w] = in_proto_hdr_phv[8*PHV_B_NUM+16*PHV_H_NUM+w*32 +: 32];
-    end
-
-    for (b = 0; b < PHV_B_NUM; b = b + 1) begin
-        assign out_proto_hdr_phv[b*8 +: 8] = phv_b_reg[b];
-    end
-    for (h = 0; h < PHV_H_NUM; h = h + 1) begin
-        assign out_proto_hdr_phv[8*PHV_B_NUM+h*16 +: 16] = phv_h_reg[h];
-    end
-    for (w = 0; w < PHV_W_NUM; w = w + 1) begin
-        assign out_proto_hdr_phv[8*PHV_B_NUM+16*PHV_H_NUM+w*32 +: 32] = phv_w_reg[w];
-    end
-endgenerate
-
-
-integer i, j, k;
 
 always @* begin
-
-    for (i = 0; i < PHV_B_NUM; i = i + 1) begin
-        phv_b_next[i] = phv_b_reg[i];
-    end
-    for (j = 0; j < PHV_H_NUM; j = j + 1) begin
-        phv_h_next[j] = phv_h_reg[j];
-    end
-    for (k = 0; k < PHV_W_NUM; k = k + 1) begin
-        phv_w_next[k] = phv_w_reg[k];
-    end
-
+    pkt_metadata_next = pkt_metadata_reg;
     proto_hdr_valid_next = proto_hdr_valid_reg;
     proto_hdr_data_next = proto_hdr_data_reg;
     proto_hdr_length_next = proto_hdr_length_reg;
@@ -133,36 +90,24 @@ always @* begin
     end
 
     if(in_proto_hdr_valid & in_proto_hdr_ready) begin
-        for (i = 0; i < PHV_B_NUM; i = i + 1) begin
-            phv_b_next[i] = phv_b[i];
-        end
-        for (j = 0; j < PHV_H_NUM; j = j + 1) begin
-            phv_h_next[j] = phv_h[j];
-        end
-        for (k = 0; k < PHV_W_NUM; k = k + 1) begin
-            phv_w_next[k] = phv_w[k];
-        end
 
+        pkt_metadata_next = pkt_metadata;
         proto_hdr_valid_next = 1'b1;
-
         //parse vlan
-        if(phv_w[PROTO_NO][VLAN_TAG_INDEX]) begin
+        if(pkt_metadata_next[PROTO_NO + VLAN_TAG_INDEX]) begin
             if(in_proto_hdr_data[(HEADER_WIDTH-2*8-1)-:16] == 16'h86dd) begin
-                phv_w_next[PROTO_NO][IPV6_TAG_INDEX] = 1'b1;
-            // end else if(in_proto_hdr_data[(HEADER_WIDTH-2*8-1)-:16] == 16'h8864)begin
-            //     phv_w_next[PROTO_NO][PPPOE_TAG_INDEX] = 1'b1;
+                pkt_metadata_next[PROTO_NO + IPV6_TAG_INDEX] = 1'b1;
             end else begin
-                phv_w_next[PROTO_NO] = phv_w[PROTO_NO];
+                pkt_metadata_next[PROTO_NO +: PROTO_WIDTH] = pkt_metadata[PROTO_NO +: PROTO_WIDTH];
             end
-            phv_b_next[IP_OFFSET_NO][7:0] = phv_b[IP_OFFSET_NO][7:0] + 8'd4;
-            // phv_b_next[TRANSPORT_LAYER_OFFSET_NO][7:0] = phv_b[TRANSPORT_LAYER_OFFSET_NO][7:0] + 8'd4;
+            pkt_metadata_next[IP_OFFSET_NO +: IP_OFFSET_WIDTH] = pkt_metadata[IP_OFFSET_NO +: IP_OFFSET_WIDTH] + 8'd4;
             proto_hdr_data_next[HEADER_WIDTH-1:0] = {in_proto_hdr_data[HEADER_WIDTH-32-1:0], 32'b0};
             proto_hdr_length_next = in_proto_hdr_length - 8'd4;
-            phv_b_next[SEATL_OFFSET_NO][7:0] = phv_b[SEATL_OFFSET_NO][7:0] + 8'd4;//modify
+            pkt_metadata_next[SEATL_OFFSET_NO +: SEATL_OFFSET_WIDTH] = pkt_metadata[SEATL_OFFSET_NO +: SEATL_OFFSET_WIDTH] + 8'd4;
         end else begin
             proto_hdr_data_next = in_proto_hdr_data;
             proto_hdr_length_next = in_proto_hdr_length;
-            phv_b_next[SEATL_OFFSET_NO][7:0] = phv_b[SEATL_OFFSET_NO][7:0];//modify
+            // pkt_metadata_next[SEATL_OFFSET_NO +: SEATL_OFFSET_WIDTH] = pkt_metadata[SEATL_OFFSET_NO +: SEATL_OFFSET_WIDTH];
         end
 
     end
@@ -174,33 +119,13 @@ always @(posedge clk) begin
     proto_hdr_valid_reg <= proto_hdr_valid_next;
     proto_hdr_data_reg <= proto_hdr_data_next;
     proto_hdr_length_reg <= proto_hdr_length_next;
-
-    for (i = 0; i < PHV_B_NUM; i = i + 1) begin
-        phv_b_reg[i] <= phv_b_next[i];
-    end
-    for (j = 0; j < PHV_H_NUM; j = j + 1) begin
-        phv_h_reg[j] <= phv_h_next[j];
-    end
-    for (k = 0; k < PHV_W_NUM; k = k + 1) begin
-        phv_w_reg[k] <= phv_w_next[k];
-    end
-
-
-
+    pkt_metadata_reg <= pkt_metadata_next;
+    
     if(rst) begin
         proto_hdr_valid_reg <= 0;
         proto_hdr_data_reg <= 0;
         proto_hdr_length_reg <= 0;
-
-        for (i = 0; i < PHV_B_NUM; i = i + 1) begin
-            phv_b_reg[i] <= 0;
-        end
-        for (j = 0; j < PHV_H_NUM; j = j + 1) begin
-            phv_h_reg[j] <= 0;
-        end
-        for (k = 0; k < PHV_W_NUM; k = k + 1) begin
-            phv_w_reg[k] <= 0;
-        end
+        pkt_metadata_reg <= 0;
     end
 
 end
