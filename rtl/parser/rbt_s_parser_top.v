@@ -34,7 +34,7 @@ module rbt_s_parser_top #
     parameter USER_WIDTH =64,
 
     // pkt_metadata
-    parameter PKT_METADATA_WIDTH = 275,//modified
+    parameter PKT_METADATA_WIDTH = 274,//modified
 
     parameter HEADER_WIDTH = 2048,
 

@@ -1,9 +1,20 @@
+/*
+ * Created on 20240730
+ *
+ * Copyright (c) 2024 IOA UCAS
+ *
+ * @Filename:   reli_tx_top.v
+ * @Author:     zhangao
+ * @Last edit:
+ */
 
-module mau_rbttx_top #(
+// Language: Verilog 2001
+
+module mau_reli_tx_top #(
     parameter ADDR_WIDTH = 11,// HASH   table 1024 entries, so addr width is log2(2048)
-    parameter KEY_WIDTH = 256,//RSIP 128bit + Dstip 128bit
+    parameter KEY_WIDTH = 133,//RSIP_INDEX 5bit + Dstip 128bit
     // parameter MASK_WIDTH = 256,
-    parameter VALUE_WIDTH = 32,
+    parameter VALUE_WIDTH = 32,// todo
     parameter OPCODE_WIDTH = 4,
 
     parameter PHV_B_COUNT = 7,
@@ -33,7 +44,7 @@ module mau_rbttx_top #(
     output wire [CSR_DATA_WIDTH-1:0]                    ctrl_reg_app_rd_data,
     output wire                                         ctrl_reg_app_rd_wait,
     output wire                                         ctrl_reg_app_rd_ack,
-
+    //phv
     input  wire                       		s_phv_valid,
     output wire                       		s_phv_ready,
     input  wire [PHV_WIDTH-1:0]      		s_phv_info,
@@ -44,7 +55,7 @@ module mau_rbttx_top #(
 );
 
  // table size parameter
-localparam FLOWSTATE_WIDTH = 32; //RPN 32bit
+localparam FLOWSTATE_WIDTH = 33; //RPN 32bit + RST_FLAG 1bit
 localparam PHV_DEPTH = 8; //em 5clock 
 
 wire reliable_enable;

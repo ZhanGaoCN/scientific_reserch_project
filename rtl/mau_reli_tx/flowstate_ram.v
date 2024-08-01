@@ -1,11 +1,19 @@
 /*
- * @Autor: lur
+ * Created on 20240730
+ *
+ * Copyright (c) 2024 IOA UCAS
+ *
+ * @Filename:   reli_tx_top.v
+ * @Author:     zhangao
+ * @Last edit:
  */
+
+// Language: Verilog 2001s
+
 `resetall
 `timescale 1ns / 1ps
 `default_nettype none
 module flowstate_ram#(
-	parameter VALUE_WIDTH = 32,
     parameter FLOWSTATE_WIDTH=32,
     parameter ADDR_WIDTH=10,
     parameter OPCODE_WIDTH=4
@@ -23,26 +31,26 @@ module flowstate_ram#(
     input  wire                     s_mat_valid,
     output wire                     s_mat_ready,
 
-    output wire                     m_mat_hit,
-	output wire [VALUE_WIDTH-1:0]   m_mat_value,
-    output wire [ADDR_WIDTH-1:0]    m_mat_addr,
-	output wire                     m_mat_valid,
-	input  wire                     m_mat_ready,
+    output wire                         m_mat_hit,
+	output wire [FLOWSTATE_WIDTH-1:0]   m_mat_value,
+    output wire [ADDR_WIDTH-1:0]        m_mat_addr,
+	output wire                         m_mat_valid,
+	input  wire                         m_mat_ready,
 
-    input  wire [ADDR_WIDTH-1:0]    s_mod_addr,
-    input  wire [VALUE_WIDTH-1:0]   s_mod_data,
-    input  wire [OPCODE_WIDTH-1:0]  s_mod_opcode,
-    input  wire                     s_mod_valid,
-    output wire                     s_mod_ready,
+    input  wire [ADDR_WIDTH-1:0]        s_mod_addr,
+    input  wire [FLOWSTATE_WIDTH-1:0]   s_mod_data,
+    input  wire [OPCODE_WIDTH-1:0]      s_mod_opcode,
+    input  wire                         s_mod_valid,
+    output wire                         s_mod_ready,
 
-    output wire [VALUE_WIDTH-1:0]   m_mod_bdata,
-    output wire                     m_mod_bvalid,
-    input  wire                     m_mod_bready
+    output wire [FLOWSTATE_WIDTH-1:0]   m_mod_bdata,
+    output wire                         m_mod_bvalid,
+    input  wire                         m_mod_bready
 );
 
-wire [VALUE_WIDTH-1:0] m_mat_value_wire;
+wire [FLOWSTATE_WIDTH-1:0] m_mat_value_wire;
 simple_dual_port_ram #(
-    .DATA_WIDTH(VALUE_WIDTH),
+    .DATA_WIDTH(FLOWSTATE_WIDTH),
     .ADDR_WIDTH(ADDR_WIDTH)
 ) flowstate_mem_inst (
     //input;
@@ -53,7 +61,7 @@ simple_dual_port_ram #(
     .rden((s_mod_ready && s_mod_valid && s_mod_opcode == 4'b1100) || (s_mat_valid && s_mat_ready)),
     .raddress((s_mod_ready && s_mod_valid && s_mod_opcode == 4'b1100)? s_mod_addr : s_mat_addr),
     .waddress(bcd_valid_in? bcd_addr_in : s_mod_addr),
-    .data_in(bcd_valid_in? bcd_flowstate_in : ((s_mod_opcode == 4'b1101)?s_mod_data:{(VALUE_WIDTH){1'b0}})),
+    .data_in(bcd_valid_in? bcd_flowstate_in : ((s_mod_opcode == 4'b1101)?s_mod_data:{(FLOWSTATE_WIDTH){1'b0}})),
     
     //output;
     .data_out(m_mat_value_wire)
@@ -122,7 +130,7 @@ assign s_mat_ready = m_mat_ready || ~m_mat_valid_reg;
 assign m_mat_valid = m_mat_valid_reg;
 assign m_mat_hit = m_mat_hit_reg;
 assign m_mat_addr = m_mat_addr_reg;
-assign m_mat_value = m_mat_value_wire[VALUE_WIDTH-1:0];
+assign m_mat_value = m_mat_value_wire[FLOWSTATE_WIDTH-1:0];
 
 
 endmodule

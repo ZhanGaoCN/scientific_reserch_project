@@ -23,11 +23,11 @@ VERILOG_SOURCES += ../../rtl/parser/rbt_s_pre_parser.v
 VERILOG_SOURCES += ../../rtl/parser/rbt_s_post_parser.v
 
 #match_action_unit
-VERILOG_SOURCES += ../../rtl/mau_rbttx/mau_rbttx_top.v
-VERILOG_SOURCES += ../../rtl/mau_rbttx/key_selector_rbttx.v
-VERILOG_SOURCES += ../../rtl/mau_reliable_send/mau_reliable_send_action_unit.v
-VERILOG_SOURCES += ../../rtl/mau_reliable_send/flowstate_sendmau_addr_ctl.v
-VERILOG_SOURCES += ../../rtl/mau_reliable_send/reliable_send_action_core.v
+VERILOG_SOURCES += ../../rtl/mau_reli_tx/mau_reli_tx_top.v
+VERILOG_SOURCES += ../../rtl/mau_reli_tx/key_selector_reli_tx.v
+VERILOG_SOURCES += ../../rtl/mau_reli_tx/mau_reli_tx_action_unit.v
+VERILOG_SOURCES += ../../rtl/mau_reli_tx/flowstate_reli_tx_addr_ctl.v
+VERILOG_SOURCES += ../../rtl/mau_reli_tx/mau_reli_tx_action_core.v
 VERILOG_SOURCES += ../../../reli_recv/rtl/mau_reliable_recv/flowstate_ram.v
 VERILOG_SOURCES += ../../../reli_recv/rtl/mau_reliable_recv/flowstate_addr_ctl.v
 

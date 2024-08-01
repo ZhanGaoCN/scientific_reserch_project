@@ -50,7 +50,7 @@ module reli_tx_top # (
     parameter DROP_BAD_FRAME        = 0,
     parameter DROP_WHEN_FULL        = 0,
 
-    parameter pkt_metadata_WIDTH    = 275//todo
+    parameter PKT_METADATA_WIDTH = 274
 ) (
     input  wire clk,
     input  wire rst,
@@ -102,9 +102,9 @@ module reli_tx_top # (
 
 
 
-wire [PHV_WIDTH-1:0] phv_info;
-wire                 phv_valid;
-wire                 phv_ready;
+wire [PKT_METADATA_WIDTH-1:0] m_pkt_metadata_info;
+wire                 m_pkt_metadata_valid;
+wire                 m_pkt_metadata_ready;
 /*
  * 1. Parser
  */
@@ -125,10 +125,7 @@ rbt_s_parser_top #(
     .DATA_WIDTH                 (DATA_WIDTH),
     .KEEP_WIDTH                 (KEEP_WIDTH),
     .USER_WIDTH                 (S_USER_WIDTH),
-    .PHV_B_NUM                  (PHV_B_COUNT),
-    .PHV_H_NUM                  (PHV_H_COUNT),
-    .PHV_W_NUM                  (PHV_W_COUNT),
-    .PHV_WIDTH                  (PHV_WIDTH),
+    .PKT_METADATA_WIDTH         (PKT_METADATA_WIDTH)
     .DEPTH                      (MAX_MTU)
 ) parser_inst(
     .clk                        (clk),
@@ -147,23 +144,10 @@ rbt_s_parser_top #(
     .m_axis_tready              (axis_psr_tready),
     .m_axis_tlast               (axis_psr_tlast),
     .m_axis_tuser               (axis_psr_tuser),
-
-    .csr_wr_addr                (ctrl_reg_app_wr_addr),
-    .csr_wr_data                (ctrl_reg_app_wr_data),
-    .csr_wr_strb                (ctrl_reg_app_wr_strb),
-    .csr_wr_en                  (ctrl_reg_app_wr_en && ((ctrl_reg_app_wr_addr >> 12) == 16'h1)),
-    .csr_wr_wait                (csr_psr_wr_wait),
-    .csr_wr_ack                 (csr_psr_wr_ack),
-
-    .csr_rd_addr                (ctrl_reg_app_rd_addr),
-    .csr_rd_en                  (ctrl_reg_app_rd_en && ((ctrl_reg_app_rd_addr >> 12) == 16'h1)),
-    .csr_rd_wait                (csr_psr_rd_wait),
-    .csr_rd_data                (csr_psr_rd_data),
-    .csr_rd_ack                 (csr_psr_rd_ack),
     
-    .m_phv_info                 (phv_info),
-    .m_phv_valid                (phv_valid),
-    .m_phv_ready                (phv_ready)
+    .m_pkt_metadata_info,                 (m_pkt_metadata_info),
+    .m_pkt_metadata_valid                (m_pkt_metadata_valid),
+    .m_pkt_metadata_ready                (m_pkt_metadata_ready)
 );
 
 /*
@@ -262,9 +246,9 @@ mau_rbttx_top #(
     .ctrl_reg_app_rd_data            (csr_mau_rd_data),
     .ctrl_reg_app_rd_ack             (csr_mau_rd_ack),
 
-    .s_phv_info                     (phv_info       ),
-    .s_phv_valid                    (phv_valid      ),
-    .s_phv_ready                    (phv_ready      ),
+    .s_phv_info                     (m_pkt_metadata_info       ),
+    .s_phv_valid                    (m_pkt_metadata_valid      ),
+    .s_phv_ready                    (m_pkt_metadata_ready      ),
 
     .m_phv_info                     (phv_mau_info       ),
     .m_phv_valid                    (phv_mau_valid      ),
